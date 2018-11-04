@@ -1,0 +1,20 @@
+{
+  "name": "react-jquery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "isolatej.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.1.0",
+    "babel-preset-react-app": "^3.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.0",
+    "@babel/preset-react": "^7.0.0"
+  }
+}

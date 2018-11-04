@@ -1,0 +1,82 @@
+const reactI18nextModule = reactI18next.reactI18nextModule
+
+i18next
+  .use(reactI18nextModule)
+  .init({
+    interpolation: {
+      // React already does escaping
+      escapeValue: false,
+    },
+    lng: 'en', // 'en' | 'es'
+    resources: {
+      en: {
+        translation: {
+          age: { label: 'Age', },
+          home: { label: 'Home', },
+          name: { label: 'Name', },
+        },
+      },
+      es: {
+        translation: {
+          age: { label: 'Años', },
+          home: { label: 'Casa', },
+          name: { label: 'Nombre', },
+        },
+      },
+    },
+  },
+  (err, t) => {
+    if (err) {
+      return console.error(err)
+    }
+  }
+)
+
+const I18n = reactI18next.I18n
+
+function Gator({ gator }) {
+  return (
+    <I18n>
+      {
+        (t) => {
+          return (
+            <div>
+              <label>{ t('name.label') }</label>
+              <span>{ gator.name } 🐊</span> <br/>
+              <label>{ t('age.label') }</label>
+              <span>{ gator.age }</span> <br/>
+              <label>{ t('home.label') }</label>
+              <span>{ gator.home }</span>
+            </div>
+          )
+        }
+      }
+    </I18n>
+  )
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelector('button').addEventListener('click', () => {
+    if (i18next.language !== 'en') {
+      i18next.changeLanguage('en')
+    }
+    else {
+      i18next.changeLanguage('es')
+    }
+  })
+
+  let gator = {
+    name: 'Alli',
+    age: 8,
+    home: 'Bayou',
+  }
+  ReactDOM.render(
+    (
+      <div>
+        <h3>Using react-i18next</h3>
+        <Gator gator={gator}/>
+      </div>
+    ),
+    document.querySelector('#placeholder')
+  )
+})

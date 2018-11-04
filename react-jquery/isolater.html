@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Isolated State - React</title>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+            <h2>Isolated State - React</h2>
+        <!--
+        Demonstrates how ReactJS mounts itself to a container and takes it from there.
+        -->
+        <div id="mood-container"></div>
+        <div id="root"></div>
+
+        <!-- Load React. -->
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+        
+        <!-- Load our React component. -->
+        
+        <script src="isolater.js"></script>
+
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <script type="text/babel">
+
+class App extends React.Component {
+    constructor(props) {
+        super(props);
+        
+        this.moods = [
+            { name: "Happy", "emoji": "😀" }, 
+            { name: "Angry", "emoji": "😠" },
+            { name: "Really Angry", "emoji": "😡" },
+            { name: "Sad", "emoji": "🙁" },
+            { name: "Really Sad", "emoji": "☹️" },
+            { name: "Poop", "emoji": "💩" }
+        ];
+        
+        this.state = {
+            mood: { 
+                name: "[ Emoji Placeholder ]", 
+                emoji: null 
+            }
+        }
+    }
+    
+    handleButtonClick() {
+        const mood = this.moods[Math.floor(Math.random()*this.moods.length)];
+        this.setState({ mood });
+    }
+    
+    render() {
+        return (
+            <div className="App">
+                <MoodView mood={ this.state.mood } />
+                <MoodButton mood={ this.state.mood } onButtonClick={ this.handleButtonClick.bind(this) } />
+            </div>
+        )
+    }
+}
+                    
+function MoodView({ mood }) {
+    return (
+        <div className="Mood">
+            <div className="Mood__emoji">{ mood.emoji }</div>
+            <div className="Mood__name">{ mood.name }</div>
+        </div>
+    )
+}
+                    
+function MoodButton({ onButtonClick, mood }) {
+    return (
+        <div className="MoodButton">
+            <button className="Mood__button" onClick={ onButtonClick }>
+                Random Mood - { mood.name }
+            </button>
+        </div>
+    )
+}
+
+// Mount the App container to a root element
+React.render(<App />, document.getElementById('App'));
+
+          </script>
+        
+    </body>
+</html>
+
